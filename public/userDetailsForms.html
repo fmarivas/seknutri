@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/user_detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">	
+	<script src="assets/js/script.js"></script>
+    <title>Informacoes do Usuario</title>
+	<style>	
+	body  {
+		font-family: Arial, sans-serif;
+		background-color: #808080;
+		color: #333; 
+	}
+
+	</style>	
+</head>
+<body>
+    <div class="form-container">
+		<form action="/user_details" method="post">
+			<!-- Part 1: Objetivo -->
+			<div class="outer-container beguining" id="fase1">
+			  <div class="container">
+				<main>
+				  <section class="form-section">
+					<div class="step-info">
+						<div>
+						  <span class="step-text">Passo 1</span>
+						</div>
+					  <div class="progress-bar-status">
+						<div class="progress_1"></div>
+					  </div>
+					</div>
+
+					<div class="menu">
+					  <select id="Goal" class="dropdown-toggle" name="goal" required>
+						<option selected disabled value="">Escolha o seu objetivo</option>
+						<option value="maintenance">Manter o peso</option>
+						<option value="cutting">Perder Peso</option>
+						<option value="bulking">Ganhar Peso</option>
+					  </select>
+					</div>
+					<div class="right-align-z">
+					  <button class="btnNext" id="btn-next1" type="button" onclick="nextPart();">Próximo</button>
+					</div>
+				  </section>
+				</main>
+			  </div>
+			</div>
+
+			<!-- Part 2: Cadastro do Usuário -->
+			<div class="outer-container" id="fase2">
+			  <div class="container">
+				<main>
+				  <section class="form-section">
+					<div class="step-info">
+					  <span class="step-text">Passo 2</span>
+					  <div class="progress-bar-status">
+						<div class="progress_2"></div>
+					  </div>
+					</div>
+					  <div>
+						<input type="number" id="age" name="age" placeholder="Digite sua idade"  required>
+					  </div>
+					  <div>
+						<input type="number" id="weight" name="weight" placeholder="Digite seu peso em kg"  required>
+					  </div>
+					  <div>
+						<input type="number" id="height" name="height" placeholder="Digite sua altura em cm"  required>
+					  </div>
+					  <div>
+						<div class="dropdown">
+						  <select id="gender" name="gender" class="btn dropdown-toggle" required>
+							<option selected disabled  value="">Selecione o sexo</option>
+							<option>Feminino</option>
+							<option>Masculino</option>
+						  </select>
+						</div>
+					  </div>
+					<div class="btn-container">
+					  <div class="btn-container-left">
+						<button class="btnBack" id="btn-back1" type="button" onclick="prevPart()">Voltar</button>
+					  </div>
+					  <div class="btn-container-right">
+						<button class="btnNext" id="btn-next2" type="button" onclick="nextPart();">Próximo</button>
+					  </div>
+					</div>
+				  </section>
+				</main>
+			  </div>
+			</div>
+
+			<!-- Part 3: Nível de Atividade -->
+			<div class="outer-container" id="fase3">
+			  <div class="container">
+				<main>
+				  <section class="form-section">
+					<div class="step-info">
+					  <span class="step-text">Passo 3</span>
+					  <div class="progress-bar-status">
+						<div class="progress_3"></div>
+					  </div>
+					</div>		  
+
+					  <div>
+						<label for="activity-level">Nível de Atividade:</label>
+						<div class="dropdown">
+						  <select id="activity-level" name="activityLevel" class="dropdown-toggle" required>
+							<option selected disabled value="">Selecione o nível de atividade</option>
+							<option value="sedentary">Sedentário (pouco ou nenhum exercício + trabalho de escritório)</option>
+							<option value="lightly-active">Ativo Leve (exercício leve 1-3 vezes por semana)</option>
+							<option value="moderately-active">Ativo Moderado (exercício moderado 3-5 vezes por semana)</option>
+							<option value="very-active">Muito Ativo (exercício intenso 6-7 vezes por semana)</option>
+							<option value="extremely-active">Extremamente Ativo (exercício intenso, trabalho físico pesado, treinamento 2x/dia)</option>
+						  </select>
+						</div>
+					  </div>
+					<div class="btn-container">
+					  <div class="btn-container-left">
+						<button class="btnBack" id="btn-back2" type="button" onclick="prevPart()">Voltar</button>
+					  </div>
+					  <div class="btn-container-right">
+						<button class="btnNext" id="btn-next3" type="button" onclick="nextPart();">Próximo</button>
+					  </div>
+					</div>
+				  </section>
+				</main>
+			  </div>
+			</div>
+
+			<!-- Part 4: Intolerâncias Alimentares -->
+			<div class="outer-container" id="fase4">
+			  <div class="container">
+				<main>
+				  <section class="form-section">
+					<div class="step-info">
+					  <span class="step-text">Passo 4</span>
+					  <div class="progress-bar-status">
+						<div class="progress_4" id="progress4"></div>
+					  </div>
+					</div>
+					<div class="form-check-inline">
+					  <div>
+						<label for="food-intolerance">Intolerância Alimentar:</label>
+					  </div>
+					  <div class="checkbox-container">
+						<div class="">
+						  <input class="form-check-input" type="checkbox" id="none" name="foodIntolerance[]" value="none" />
+						  <label class="form-check-label" for="none">Nenhuma</label>
+						</div>
+						<div class="">
+						  <input class="form-check-input" type="checkbox" id="gluten-intolerance" name="foodIntolerance[]" value="gluten" />
+						  <label class="form-check-label" for="gluten-intolerance">Glúten</label>
+						</div>
+						<div class="">
+						  <input class="form-check-input" type="checkbox" id="lactose-intolerance" name="foodIntolerance[]" value="lactose" />
+						  <label class="form-check-label" for="lactose-intolerance">Lactose</label>
+						</div>
+						<div class="">
+						  <input class="form-check-input" type="checkbox" id="soy-intolerance" name="foodIntolerance[]" value="soy" />
+						  <label class="form-check-label" for="soy-intolerance">Soja</label>
+						</div>
+						<div class="">
+						  <input class="form-check-input" type="checkbox" id="seafood-intolerance" name="foodIntolerance[]" value="seafood" />
+						  <label class="form-check-label" for="seafood-intolerance">Frutos do mar</label>
+						</div>
+					  </div>
+					</div>
+						<div class="btn-container">
+							  <div class="btn-container-left">
+								<button type="button" class="btnBack" id="btn-back3" onclick="prevPart()">Voltar</button>
+							  </div>
+						  
+							<div class="btn-container-right">
+								<button type="button" class="btnNext" onclick="nextPart();">Próximo</button>
+							</div>
+						</div>
+				  </section>
+				</main>
+			  </div>
+			</div>
+
+			<!-- Part 5: Confirmação e Finalização -->
+			<div class="outer-container" id="fase5">
+				<div class="container">
+					<div class="step-info">
+						<span class="step-text">Parte 5</span>
+						<div class="progress-bar-status">
+							<div class="progress_5"></div>
+						</div>
+					</div>				
+					<label>
+						<input type="checkbox" id="confirmacao"  required> Confirmo que as informações são verdadeiras.
+					</label>
+						<div class="btn-container">
+						  <div class="btn-container-left">
+							<button class="btnBack" onclick="prevPart()" type="button">Voltar</button>
+						  </div>
+						  <div class="btn-container-right">
+							<button class="btnNext" type="submit">Finalizar</button>
+						  </div>
+						</div>
+				</div>
+			</div>
+		</form>
+    </div>
+	
+<script>
+
+let currentPart = 1;
+
+function showPart(partNumber) {
+    document.querySelectorAll('.outer-container').forEach(part => {
+        part.style.display = 'none';
+    });
+
+    document.getElementById(`fase${partNumber}`).style.display = 'block';
+    currentPart = partNumber;
+}
+
+function nextPart() {
+    if (validateCurrentPart()) {
+        if (currentPart < 5) {
+            showPart(currentPart + 1);
+        }
+    }
+}
+
+function prevPart() {
+    if (currentPart > 1) {
+        showPart(currentPart - 1);
+    }
+}
+
+
+function validateCurrentPart() {
+    let isValid = true;
+    const currentPartContainer = document.getElementById(`fase${currentPart}`);
+
+    // Adicione lógica de validação para a parte atual aqui
+	if(currentPart === 1){
+		const goal = document.getElementById("Goal").value;
+		if(goal === "" || goal === "Escolha o seu objetivo"){
+			isValid = false;
+			alert('Por favor, selecione o seu objetivo.');
+		}
+	}else if (currentPart === 2) {
+        const age = document.getElementById('age').value;
+        const weight = document.getElementById('weight').value;
+        const height = document.getElementById('height').value;
+        const gender = document.getElementById('gender').value;
+
+        if (!age || !weight || !height || gender === '' && gender === "Selecione o sexo") {
+            isValid = false;
+            alert('Por favor, preencha todos os campos antes de continuar.');
+        }
+    }else if(currentPart === 3){
+		const activityLevel = document.getElementById("activity-level").value;
+		
+		if(activityLevel === "" || activityLevel ==="Selecione o nível de atividade"){
+			isValid = false;
+			alert("Por favor, preencha o seu nivel de atividade");
+		}
+	}else
+	if(currentPart === 4){ 
+		const checkboxInput = document.querySelectorAll('.form-check-input')
+		let isAtLeastOneChecked = false;
+		
+		checkboxInput.forEach(input =>{
+			if(input.checked){
+				isAtLeastOneChecked = true
+				
+				if(input.value === 'none'){
+					checkboxInput.forEach(otherInput =>{
+						if(otherInput.value !== 'none'){
+							otherInput.checked = false
+						}
+					})
+				}else{
+					const noneCheckbox = document.querySelector('input[value="none"]')
+					
+					if(noneCheckbox){
+						noneCheckbox.checked = false
+					}
+				}
+				
+				
+			}
+		})
+		
+		if(!isAtLeastOneChecked){
+			alert('Selecione pelo menos uma das opções');
+			isValid = false
+		}
+	}
+
+    return isValid;
+}
+
+showPart(1);
+
+</script>
+</body>
+</html>

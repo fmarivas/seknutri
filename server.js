@@ -5,8 +5,6 @@ const path = require('path')
 const routes = require('./routes/routes')
 const authRoutes = require('./controllers/googleauth')
 
-
-
 const mysql = require('mysql')
 // const conn = require('./controllers/db')
 

@@ -2,7 +2,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy
 const express =require('express')
 const router = express.Router()
 const passport = require('passport')
-const googleauth = require('../controllers/function/googleAuthFunction')
+const Authorization = require('../controllers/function/authorization')
 
 require('dotenv').config()
 let userProfile
@@ -24,14 +24,12 @@ router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: '/error' }),
   function(req, res) {
     // Successful authentication, redirect home.
-	req.session.user = userProfile
     res.redirect('/auth/success');
   });
 
 router.get("/success", async (req, res) => {
 	try{
-		const success = await googleauth.registerWithGoogle(userProfile)
-		res.json({success})
+		await Authorization.handUserGoogleLogin(userProfile, res, req)
 	}catch(err){
 		console.error(err)
 	}
